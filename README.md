@@ -24,9 +24,9 @@ Pet adoption platform designed to streamline the process of connecting homeless 
 
 ## 👥 Team Contributions
 
-| Team Member | Contributions |
-|-------------|------|---------------|
-| **Kateryna** |  🎯 **Task 1** - Comprehensive system description, requirements analysis, and domain modeling |
+| Team Member | Contributions|
+|-------------|---------------|
+| **Kateryna** | 🎯 **Task 1** - Comprehensive system description, requirements analysis, and domain modeling |
 | **Hashim** | 🎯 **Task 2** - Primary class diagram design in Lucid Chart, UML structure definition |
 | **Calvin** | 🎯 **Task 2** - Code generation implementation in Astah UML, model validation and refinement |
 | **Prabhat** | 🎯 **Task 5** - Generative AI modeling exploration, prompt engineering, comparative analysis |
