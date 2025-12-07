@@ -1,0 +1,107 @@
+@startuml BankInformationSystem
+
+!define PRIMARY_KEY {<b><color:blue>+</color></b>}
+!define DERIVED {<color:green>/</color>}
+
+' Enumerations
+enum ConsultantType {
+  GENERIC
+  LOAN_SPECIALIST
+}
+
+enum ConsultantLevel {
+  JUNIOR
+  SENIOR
+}
+
+enum FinancialItemType {
+  STOCK
+  BOND
+}
+
+enum CheckStatus {
+  UNDER_REVIEW
+  PASSED
+  FAILED
+}
+
+enum AssessmentStatus {
+  UNDER_REVIEW
+  PASSED
+  FAILED
+}
+
+enum LoanType {
+  UNSECURED_PERSONAL_LOAN
+  SECURED_PERSONAL_LOAN
+  FIXED_RATE_LOAN
+  VARIABLE_RATE_LOAN
+  DEBT_CONSOLIDATION_LOAN
+  CO_SIGN_LOAN
+  PERSONAL_LINE_OF_CREDIT
+}
+
+' Main Classes
+class Customer {
+  PRIMARY_KEY taxCode: String
+  name: String
+  surname: String
+  dateOfBirth: Date
+  medicalInsuranceCode: String
+  DERIVED age: int
+}
+
+class Consultant {
+  PRIMARY_KEY professionalId: String
+  name: String
+  surname: String
+  dateOfBirth: Date
+  type: ConsultantType
+  level: ConsultantLevel
+  DERIVED age: int
+}
+
+class FinancialItem {
+  PRIMARY_KEY name: String
+  type: FinancialItemType
+}
+
+class CustomerFolder {
+  ' No direct attributes - all through associations
+}
+
+class Appointment {
+  date: Date
+  startTime: Time
+}
+
+class Loan {
+  duration: String
+  type: LoanType
+  careerCheckStatus: CheckStatus
+  medicalHistoryCheckStatus: CheckStatus
+  DERIVED overallAssessmentStatus: AssessmentStatus
+}
+
+' Association Classes
+class Review {
+  score: int
+}
+
+class PurchasedItem {
+  amount: double
+}
+
+' Relationships
+Customer ||--|| CustomerFolder : has
+CustomerFolder }o--|| Consultant : openedBy
+CustomerFolder }|--|| Consultant : assignedSenior
+Customer ||--o{ Appointment : books
+Appointment }|--|| Consultant : with
+CustomerFolder ||--o{ PurchasedItem : contains
+FinancialItem ||--o{ PurchasedItem : appears_in
+CustomerFolder ||--o{ Loan : contains
+Loan }|--|| Consultant : openedBy
+Loan ||--|{ Review : has
+Consultant ||--o{ Review : writes
+@enduml
