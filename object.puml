@@ -1,0 +1,108 @@
+@startuml BankObjectModel
+
+object customer1 {
+  taxCode = "TSX123456789"
+  name = "Mario"
+  surname = "Rossi"
+  dateOfBirth = "1985-03-15"
+  medicalInsuranceCode = "MED12345"
+  /age = 39
+}
+
+object consultant1 {
+  professionalId = "CONS_J001"
+  name = "Giovanni"
+  surname = "Verdi"
+  dateOfBirth = "1995-01-10"
+  type = GENERIC
+  level = JUNIOR
+  /age = 29
+}
+
+object consultant2 {
+  professionalId = "CONS_S001"
+  name = "Anna"
+  surname = "Russo"
+  dateOfBirth = "1988-11-05"
+  type = GENERIC
+  level = SENIOR
+  /age = 36
+}
+
+object consultant3 {
+  professionalId = "CONS_S002"
+  name = "Marco"
+  surname = "Ferrari"
+  dateOfBirth = "1982-06-20"
+  type = LOAN_SPECIALIST
+  level = SENIOR
+  /age = 42
+}
+
+object item1 {
+  name = "Apple Inc. Stock"
+  type = STOCK
+}
+
+object folder1 {
+  ' CustomerFolder has no direct attributes
+}
+
+object appointment1 {
+  date = "2024-01-15"
+  startTime = "10:00"
+}
+
+object loan1 {
+  duration = "5 years"
+  type = FIXED_RATE_LOAN
+  careerCheckStatus = PASSED
+  medicalHistoryCheckStatus = PASSED
+  /overallAssessmentStatus = PASSED
+}
+
+object review1 {
+  score = 2
+}
+
+object review2 {
+  score = 1
+}
+
+object review3 {
+  score = 3
+}
+
+object purchased1 {
+  amount = 5000.00
+}
+
+' Relationships between objects
+customer1 -- folder1 : has
+
+folder1 -- consultant1 : openedBy
+folder1 -- consultant2 : assignedSenior
+
+customer1 -- appointment1 : books
+appointment1 -- consultant2 : with
+
+folder1 -- purchased1 : contains
+purchased1 -- item1 : references
+
+folder1 -- loan1 : contains
+loan1 -- consultant3 : openedBy
+
+loan1 -- review1 : has
+loan1 -- review2 : has
+loan1 -- review3 : has
+
+review1 -- consultant3 : writtenBy
+review2 -- consultant4 : writtenBy
+review3 -- consultant5 : writtenBy
+
+note right of consultant4
+  Additional consultants
+  not shown for simplicity
+end note
+
+@enduml
